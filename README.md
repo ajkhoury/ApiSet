@@ -7,4 +7,6 @@ I wrote this to quickly resolve API Set libraries on different Windows OSes (Win
 Usage:
 `apiset.exe ext-some-api-set-library-l1-1-0.dll`
 
+You can port this to work for kernel API sets quite easily by porting this to a small device driver.
+
 Thanks to [lucasg](https://github.com/lucasg) for a great starting point for this little project.
