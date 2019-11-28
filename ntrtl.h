@@ -88,7 +88,7 @@ FORCEINLINE
 VOID
 RtlInitEmptyAnsiString(
     OUT PANSI_STRING AnsiString,
-    IN _Pre_maybenull_ _Pre_readable_size_(BufferSize) CHAR* Buffer,
+    IN _Pre_readable_size_(BufferSize) CHAR* Buffer,
     IN UINT16 BufferSize
 )
 {
