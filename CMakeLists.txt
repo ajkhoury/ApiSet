@@ -29,6 +29,10 @@ set(APISET_SOURCES
         apiset.c
         resolve.c
         main.c
-        unicode.c)
+        )
+if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+    set(APISET_SOURCES ${APISET_SOURCES} unicode.c)
+endif()
+
 add_executable(apiset ${APISET_SOURCES})
 target_link_libraries(apiset ntdll)
