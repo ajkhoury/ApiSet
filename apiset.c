@@ -38,7 +38,7 @@
 #define GET_API_SET_NAMESPACE_VALUE_ENTRY_V6(ApiSetNamespace, Entry, Index) \
     ((PAPI_SET_VALUE_ENTRY_V6)((ULONG_PTR)(ApiSetNamespace) + \
                                 ((PAPI_SET_NAMESPACE_ENTRY_V6)(Entry))->ValueOffset + \
-                                    (Index * sizeof(API_SET_VALUE_ENTRY_V6))))
+                                    ((Index) * sizeof(API_SET_VALUE_ENTRY_V6))))
 
 #define GET_API_SET_NAMESPACE_ENTRY_NAME_V6(ApiSetNamespace, Entry) \
     ((PWCHAR)((ULONG_PTR)(ApiSetNamespace) + ((PAPI_SET_NAMESPACE_ENTRY_V6)(Entry))->NameOffset))
