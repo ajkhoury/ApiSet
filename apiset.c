@@ -229,7 +229,7 @@ ApiSetResolveToHostV6(
     // Check library name starts with "api-" or "ext-"
     //
     ApiSetNameBufferPrefix = *(ULONGLONG*)ApiSetNameBuffer;
-    ApiSetNameBufferPrefix &= ~(ULONGLONG)0x0000002000200020; // Trick to convert the chars to lowercase.
+    ApiSetNameBufferPrefix &= ~(ULONGLONG)0x0000002000200020; // Trick to convert the chars to uppercase.
     if ((ApiSetNameBufferPrefix != API_SET_PREFIX_API_) &&
         (ApiSetNameBufferPrefix != API_SET_PREFIX_EXT_)) {
         goto Exit;
@@ -447,7 +447,7 @@ ApiSetResolveToHostV4(
     // Check library name starts with "api-" or "ext-"
     //
     ApiSetNameBufferPrefix = *(ULONGLONG*)ApiSetNameToResolve->Buffer;
-    ApiSetNameBufferPrefix &= ~(ULONGLONG)0x0000002000200020; // Trick to convert the chars to lowercase.
+    ApiSetNameBufferPrefix &= ~(ULONGLONG)0x0000002000200020; // Trick to convert the chars to uppercase.
     if (ApiSetNameBufferPrefix != API_SET_PREFIX_API_ &&
         ApiSetNameBufferPrefix != API_SET_PREFIX_EXT_) {
         goto Exit;
