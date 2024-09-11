@@ -114,18 +114,26 @@ ApiSetpResolve(
 BOOLEAN
 APISETAPI
 ApiSetResolve(
-    _In_ PWCHAR ApiSetName,
+    _In_z_ PWCHAR ApiSetName,
+    _In_opt_z_ PWCHAR BaseDllName,
     _Out_ PUNICODE_STRING ResolvedHostLibrary
-)
+    )
 {
+    NTSTATUS Status;
     UNICODE_STRING ApiToResolve;
-    RtlInitUnicodeString(&ApiToResolve, ApiSetName);
+    UNICODE_STRING BaseName;
 
-    NTSTATUS Status = ApiSetpResolve(GetCurrentProcess(),
-                                     &ApiToResolve,
-                                     NULL,
-                                     ResolvedHostLibrary
-                                     );
+    RtlInitUnicodeString(&ApiToResolve, ApiSetName);
+    if (BaseDllName != NULL) {
+        RtlInitUnicodeString(&BaseName, BaseDllName);
+    }
+
+    Status = ApiSetpResolve(GetCurrentProcess(),
+                            &ApiToResolve,
+                            BaseDllName ? &BaseName : NULL,
+                            ResolvedHostLibrary
+                            );
+
     if (NT_SUCCESS(Status)) {
         return TRUE;
     }

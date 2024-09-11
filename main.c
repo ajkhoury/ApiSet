@@ -15,12 +15,13 @@
 void help()
 {
     wprintf(L"ApiSet : resolve api set host library\n");
-    wprintf(L"Usage:\n    apiset ext-some-api-set-library-l1-1-0.dll\n");
+    wprintf(L"Usage:\n    apiset ext-some-api-set-library-l1-1-0.dll [base_dll_name]\n");
 }
 
 int wmain(int argc, wchar_t* argv[])
 {
     PWCHAR ApiSetName;
+    PWCHAR BaseDllName;
     UNICODE_STRING HostApi;
     WCHAR HostLibraryName[MAX_PATH];
 
@@ -37,12 +38,21 @@ int wmain(int argc, wchar_t* argv[])
         return 0;
     }
 
+    //
+    // Process arguments.
+    //
     ApiSetName = argv[1];
+
+    if (argc > 2) {
+        BaseDllName = argv[2];
+    } else {
+        BaseDllName = NULL;
+    }
 
     //
     // Attempt to resolve API Set library.
     //
-    if (!ApiSetResolve(ApiSetName, &HostApi)) {
+    if (!ApiSetResolve(ApiSetName, BaseDllName, &HostApi)) {
         wprintf(L"[x] Could not resolve Api set library : %s\n", ApiSetName);
         return -1;
     }
@@ -50,7 +60,10 @@ int wmain(int argc, wchar_t* argv[])
     //
     // Output the resolved host library.
     //
-    RtlCopyMemory(HostLibraryName, HostApi.Buffer, HostApi.Length);
+    if (wcsncpy_s(HostLibraryName, RTL_NUMBER_OF(HostLibraryName), HostApi.Buffer, HostApi.Length)) {
+        wprintf(L"[x] Could not copy resolved host library name\n");
+        return -1;
+    }
     HostLibraryName[HostApi.Length / sizeof(WCHAR)] = '\0';
 
     wprintf(L"[!] Api set library resolved : %s -> %s\n", ApiSetName, HostLibraryName);

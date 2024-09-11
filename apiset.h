@@ -240,7 +240,8 @@ ApiSetResolveToHostV2(
 BOOLEAN
 APISETAPI
 ApiSetResolve(
-    _In_ PWCHAR ApiSetName,
+    _In_z_ PWCHAR ApiSetName,
+    _In_opt_z_ PWCHAR BaseDllName,
     _Out_ PUNICODE_STRING ResolvedHostLibrary
     );
 
